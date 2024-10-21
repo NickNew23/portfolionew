@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/styles.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+	<title>Nick Walker Portfolio</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+	<script src="/gsap/SplitText.min.js"></script>
+
+</head>
+
+<div class="cursor"></div>
+
+
+	<section class="navigation">
+		<div class="inner-nav">
+		<div class="left-nav">
+			<a class="flex-nav-icon" href="/">
+			<img class="pin " src="/img/pin.png" alt="">Los Angeles
+		</a>
+		</div>
+		<div class="right-nav">
+			<img src="/img/mail.png" alt="">
+		</div>
+	</div>
+	</section>
+
+	<div data-scroll-container data-scroll> <!-- Locomotive Scroll container -->
+	
+		<section class="mb100">
+			<div class="container">
+				<div class="mw1600">
+					<h1 class="letter-spacing split-text">Evergreen Construction</h1>
+				<h3 class="light-font split-text">Design & Build Firm in San Francisco					, CA</h3>
+				</div>
+			</div>
+		</section>
+
+		<div class="video-player mb200 black">
+			<div class="video-width">
+				<video autoplay muted loop playsinline>
+					<source src="/video/construction-intro.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+
+		<div class="pad50 mb200">
+			<div class="project-details-flex">
+				<div class="flex-1">
+				<h3 class="project-sub-description">[Project Info]</h3>
+			</div>
+			<div class="flex-1">
+
+				<p class="project-details">The client’s vision for Evergreen Construction’s website was focused on a clean and sleek design that embodied their expertise in delivering high-quality construction projects throughout the San Francisco area. Evergreen Construction specializes in residential, commercial, and industrial developments, and the website needed to reflect their modern approach while highlighting craftsmanship and reliability.
+
+					
+				</p>
+				<p class="project-details">To achieve this, I created a highly responsive design that performed seamlessly across all devices, ensuring the layout maintained its sharpness from desktop to mobile. The focus was on minimalism and clarity, with careful attention to typography and layout to showcase their portfolio effectively. Smooth, subtle animations were integrated using GSAP, adding an element of interactivity that enhanced the user experience without overwhelming the performance. This approach allowed Evergreen Construction to present their projects in a modern, engaging way while maintaining the balance between form and function.
+
+				</p>
+
+				<p class="grey-light">Technology Used</p>
+				<div class="technologies-used black">
+					<div class="tech-item black">
+						<p>HTML</p>
+					</div>
+					<div class="tech-item black">
+						<p>CSS</p>
+					</div>
+					<div class="tech-item black">
+						<p>Javascript</p>
+					</div>
+					<div class="tech-item black">
+						<p>GSAP</p>
+					</div>
+				</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="two-videos">
+		<div class="video-two-col black">
+
+		<div class="video-left-col">
+			<div class="video-player  video-relative black">
+				<div class="video-width">
+					<video autoplay muted loop playsinline>
+						<source src="/video/construction-0.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			</div>
+		</div>
+		<div class="video-right-col">
+			<div class="video-player  video-relative black">
+				<div class="video-width video-relative">
+					<video autoplay muted loop playsinline>
+						<source src="/video/construction-12.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+</div>
+
+	<div class="ps50">
+<div class="next-prev">
+	<div class="prev">
+		<a href="/" class="hover-this">
+			Prev Project
+	</a>
+	</div>
+	<div class="next">
+		<a href="/" class="hover-this">
+		Next Project
+	</a>
+	</div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+<script>
+// document.addEventListener("DOMContentLoaded", function () {
+	const scroll = new LocomotiveScroll({
+		el: document.querySelector("[data-scroll-container]"),
+		smooth: true,
+		multiplier: 0.8,
+	});
+
+	gsap.registerPlugin(ScrollTrigger);
+	ScrollTrigger.scrollerProxy("[data-scroll-container]", {
+		scrollTop(value) {
+			return arguments.length ? scroll.scrollTo(value, 0, 0) : scroll.scroll.instance.scroll.y;
+		},
+		getBoundingClientRect() {
+			return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
+		},
+		pinType: document.querySelector("[data-scroll-container]").style.transform ? "transform" : "fixed"
+	});
+
+	scroll.on("scroll", ScrollTrigger.update);
+
+	// Setup SplitText animation
+	let childSplit = new SplitText(".split-text", {
+	  type: "lines",
+	  linesClass: "split-child"
+	});
+	let parentSplit = new SplitText(".split-text", {
+	  type: "lines",
+	  linesClass: "split-parent"
+	});
+
+	// Create a timeline for chaining animations
+	let tl = gsap.timeline();
+
+	tl.from(childSplit.lines, {
+		duration: 1.5,
+		yPercent: 100,
+		ease: "power4",
+		stagger: 0.1,
+		delay: .4,
+	})
+	.from(".video-player", {
+		y: 400, // Start 100px below its intrinsic position
+		duration: 1, // Duration of the video animation
+		ease: "power4.out" // Smooth ease for the animation
+	}, "-=1"); // Start this animation slightly before the previous one finishes
+
+	// Video scaling animation with ScrollTrigger
+	gsap.fromTo(".video-width video", 
+		{ scale: .8 }, 
+		{ 
+			scale: 1, 
+			scrollTrigger: {
+				trigger: ".video-player",
+				scroller: "[data-scroll-container]",
+				start: "top bottom",
+				end: "top top",
+				scrub: true
+			}
+		}
+	);
+
+	ScrollTrigger.addEventListener("refresh", () => scroll.update());
+	ScrollTrigger.refresh();
+;
+
+			// About Section Animations with SplitText
+			let aboutSplit = new SplitText(" p", {
+  type: "lines",
+  linesClass: "split-child"
+});
+
+let aboutParentSplit = new SplitText(" p", {
+  type: "lines",
+  linesClass: "split-parent"
+});
+
+// Animate the lines with ScrollTrigger (smooth motion)
+gsap.from(aboutSplit.lines, {
+  duration: 1.2, // Smooth and extended duration
+  yPercent: 100, 
+  ease: "power3.out", // Smoother ease function for fluid motion
+  stagger: 0.07, // Slight stagger for smooth transitions between lines
+  scrollTrigger: {
+    trigger: ".flex-1",
+    scroller: "[data-scroll-container]", // LocomotiveScroll container
+    start: "top 80%", // When .about enters 80% from the top of the viewport
+    toggleActions: "play none none none"
+  }
+});
+
+
+
+(function () {
+	const links = document.querySelectorAll('.hover-this');
+	const cursor = document.querySelector('.cursor');
+	const cursorSize = 15; 
+
+	const animateCursor = function (e) {
+		if (e.type === 'mouseenter') {
+			cursor.classList.add('cursor-enlarge');
+		} else if (e.type === 'mouseleave') {
+			cursor.classList.remove('cursor-enlarge');
+		}
+	};
+
+	const editCursor = e => {
+		const { clientX: x, clientY: y } = e;
+
+		
+		const offset = cursor.offsetWidth / 2;
+		cursor.style.left = `${x - offset}px`;
+		cursor.style.top = `${y - offset}px`;
+	};
+
+	links.forEach(link => {
+		link.addEventListener('mouseenter', animateCursor);
+		link.addEventListener('mouseleave', animateCursor);
+	});
+
+	window.addEventListener('mousemove', editCursor);
+})();
+</script>
+
+
+</body>
+</html>

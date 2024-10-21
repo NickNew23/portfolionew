@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/styles.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+	<title>Nick Walker Portfolio</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+	<script src="/gsap/SplitText.min.js"></script>
+
+</head>
+
+<div class="cursor"></div>
+
+
+	<section class="navigation">
+		<div class="inner-nav">
+		<div class="left-nav">
+			<a class="flex-nav-icon" href="/">
+			<img class="pin " src="/img/pin.png" alt="">Los Angeles
+		</a>
+		</div>
+		<div class="right-nav">
+			<img src="/img/mail.png" alt="">
+		</div>
+	</div>
+	</section>
+
+	<div data-scroll-container data-scroll> <!-- Locomotive Scroll container -->
+	
+		<section class="mb100">
+			<div class="container">
+				<div class="mw1600">
+					<h1 class="letter-spacing split-text">Milk & Butter Studio</h1>
+				<h3 class="light-font split-text">Creative Agency Based In Los Angeles, CA</h3>
+				</div>
+			</div>
+		</section>
+
+		<div class="video-player mb200">
+			<div class="video-width">
+				<video autoplay muted loop playsinline preload="none">
+					<source src="/video/milk-1.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</div>
+
+		<div class="pad50 mb200">
+			<div class="project-details-flex">
+				<div class="flex-1">
+				<h3 class="project-sub-description">[Project Info]</h3>
+			</div>
+			<div class="flex-1">
+
+				<p class="project-details">My focus was on creating a clean, modern design that aligned perfectly with the client’s vision, all while delivering a seamless and intuitive user experience.
+					Milk & Butter is a design and content studio based in Los Angeles, and their work spans across design, film, and technology. The project required a balance between aesthetic appeal and functional design, with an emphasis on smooth, responsive animations that brought the agency’s creative services to life.
+				</p>
+				<p class="project-details">One of the key objectives was making sure the site was highly responsive across all devices, from desktop to mobile. The design had to remain sharp and impactful, no matter the screen size. This meant paying close attention to the layout and typography, ensuring that the message remained clear and the visuals engaging. The client was particularly focused on motion graphics and subtle animations, so I integrated GSAP and Locomotive Scroll to create fluid transitions and interactions, making sure the animations were engaging without compromising performance.
+
+				</p>
+
+				<p class="grey-light">Technology Used</p>
+				<div class="technologies-used">
+					<div class="tech-item">
+						<p>HTML</p>
+					</div>
+					<div class="tech-item">
+						<p>CSS</p>
+					</div>
+					<div class="tech-item">
+						<p>Javascript</p>
+					</div>
+					<div class="tech-item">
+						<p>GSAP</p>
+					</div>
+					<div class="tech-item">
+						<p>Locomotive Scroll</p>
+					</div>
+				</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="two-videos">
+		<div class="video-two-col">
+
+		<div class="video-left-col">
+			<div class="video-player  video-relative">
+				<div class="video-width">
+					<video autoplay muted loop playsinline>
+						<source src="/video/milk-9.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			</div>
+		</div>
+		<div class="video-right-col">
+			<div class="video-player  video-relative">
+				<div class="video-width video-relative">
+					<video autoplay muted loop playsinline>
+						<source src="/video/milk-94.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+</div>
+
+	<div class="ps50">
+<div class="next-prev">
+	<div class="prev">
+		<a href="/" class="hover-this">
+			Prev Project
+	</a>
+	</div>
+	<div class="next">
+		<a href="/" class="hover-this">
+		Next Project
+	</a>
+	</div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+<script>
+// document.addEventListener("DOMContentLoaded", function () {
+	const scroll = new LocomotiveScroll({
+		el: document.querySelector("[data-scroll-container]"),
+		smooth: true,
+		multiplier: 0.8,
+	});
+
+	gsap.registerPlugin(ScrollTrigger);
+	ScrollTrigger.scrollerProxy("[data-scroll-container]", {
+		scrollTop(value) {
+			return arguments.length ? scroll.scrollTo(value, 0, 0) : scroll.scroll.instance.scroll.y;
+		},
+		getBoundingClientRect() {
+			return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
+		},
+		pinType: document.querySelector("[data-scroll-container]").style.transform ? "transform" : "fixed"
+	});
+
+	scroll.on("scroll", ScrollTrigger.update);
+
+	// Setup SplitText animation
+	let childSplit = new SplitText(".split-text", {
+	  type: "lines",
+	  linesClass: "split-child"
+	});
+	let parentSplit = new SplitText(".split-text", {
+	  type: "lines",
+	  linesClass: "split-parent"
+	});
+
+	// Create a timeline for chaining animations
+	let tl = gsap.timeline();
+
+	tl.from(childSplit.lines, {
+		duration: 1.5,
+		yPercent: 100,
+		ease: "power4",
+		stagger: 0.1,
+		delay: .4,
+	})
+	.from(".video-player", {
+		y: 400, // Start 100px below its intrinsic position
+		duration: 1, // Duration of the video animation
+		ease: "power4.out" // Smooth ease for the animation
+	}, "-=1"); // Start this animation slightly before the previous one finishes
+
+	// Video scaling animation with ScrollTrigger
+	gsap.fromTo(".video-width video", 
+		{ scale: .8 }, 
+		{ 
+			scale: 1, 
+			scrollTrigger: {
+				trigger: ".video-player",
+				scroller: "[data-scroll-container]",
+				start: "top bottom",
+				end: "top top",
+				scrub: true
+			}
+		}
+	);
+
+	ScrollTrigger.addEventListener("refresh", () => scroll.update());
+	ScrollTrigger.refresh();
+;
+
+			// About Section Animations with SplitText
+			let aboutSplit = new SplitText(" p", {
+  type: "lines",
+  linesClass: "split-child"
+});
+
+let aboutParentSplit = new SplitText(" p", {
+  type: "lines",
+  linesClass: "split-parent"
+});
+
+// Animate the lines with ScrollTrigger (smooth motion)
+gsap.from(aboutSplit.lines, {
+  duration: 1.2, // Smooth and extended duration
+  yPercent: 100, 
+  ease: "power3.out", // Smoother ease function for fluid motion
+  stagger: 0.07, // Slight stagger for smooth transitions between lines
+  scrollTrigger: {
+    trigger: ".flex-1",
+    scroller: "[data-scroll-container]", // LocomotiveScroll container
+    start: "top 80%", // When .about enters 80% from the top of the viewport
+    toggleActions: "play none none none"
+  }
+});
+
+
+
+(function () {
+	const links = document.querySelectorAll('.hover-this');
+	const cursor = document.querySelector('.cursor');
+	const cursorSize = 15; 
+
+	const animateCursor = function (e) {
+		if (e.type === 'mouseenter') {
+			cursor.classList.add('cursor-enlarge');
+		} else if (e.type === 'mouseleave') {
+			cursor.classList.remove('cursor-enlarge');
+		}
+	};
+
+	const editCursor = e => {
+		const { clientX: x, clientY: y } = e;
+
+		
+		const offset = cursor.offsetWidth / 2;
+		cursor.style.left = `${x - offset}px`;
+		cursor.style.top = `${y - offset}px`;
+	};
+
+	links.forEach(link => {
+		link.addEventListener('mouseenter', animateCursor);
+		link.addEventListener('mouseleave', animateCursor);
+	});
+
+	window.addEventListener('mousemove', editCursor);
+})();
+</script>
+
+
+</body>
+</html>
